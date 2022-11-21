@@ -54,6 +54,7 @@ The results system uses csv (comma seperated value) file for the handicaps and Q
 some examples of QE are given below:
 
 RFD,Robert Finch,,DART 18,6223,1033,M,G
+
 RH3,Richard Hargreaves,,RS 300,373,982,S,G
 
 or in tabulated form:
@@ -79,6 +80,7 @@ some example handcaps are given bellow,  these adopt the same form as the rya py
 https://www.rya.org.uk/racing/technical/handicap-systems/portsmouth-yardstick
 
 HERON,1345,D,U,1,0
+
 HOBIE 16,819,C,S,2,0
 
 or in tablulated form:
