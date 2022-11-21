@@ -99,8 +99,33 @@ config.json specfies the current handicap nad QEfile to use.
 it is done in this way as during the season the QE file is regenrated by the audit.py script at the end of each serise to update the personal handicaps and this allows the old handicap files to be kept and used by the results.py script to generate all the serise outpus.
 
 # Use
-to create a new race from terminal or desktop shortcut run:   /installPath/raceGUI.py
-this will launch the race entry GUI.
+- To create a new race from terminal or desktop shortcut run: raceGUI.py   this will launch the race entry GUI.
+- To Genterate the personal hadicaps run audit.py having first created a directory called audit in the git checkout and put into it all the race files you want to build the new file from.
+the audit process creates two files,  audit.csv which is a new correctly formated QEfile with the calcuated personal hadicaps from the .race files in the audit directory. The system also creates personalHandicaps.html which is a html file explaining the personal hadicaps system and included the latest lists.
+- To generate the PY return create a directory in the checkout called return and copy in all the files you wish to generate the PY return from,  then run: python return.py this generates an XML file that can be uploaded to the rya py returns website.
+- To Generate all the serise outputs as html run results.py (note this requires all the races to be stored sub directories named for each serise as per the names in the results files:
+
+pursuit  
+wednesday  
+Autumn  
+fastnet  
+portland  
+rockall  
+Icicle  
+caulcott  
+houghton  
+Watts  
+blackaby  
+shortCourse1  
+shortCourse2  
+shortCourse3  
+shortCourse4  
+
+each race file must be named:
+[seriesName][singleSpace][raceNo][singlSpace][dateOfrace].race
+
+ie:  
+autum 2 6-11-2022.race
 
 
 
