@@ -84,7 +84,7 @@ HOBIE 16,819,C,S,2,0
 or in tablulated form:
 
 |Class|PY|Rig|Spiniker|no crew|chage from previous list|
-|--|--|--|--|--|--|--|
+|--|--|--|--|--|--|
 |HERON|1345|D|U|1|0|
 |HOBIE 16|819|C|S|2|0|
 
