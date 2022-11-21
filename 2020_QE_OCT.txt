@@ -1,2 +1,0 @@
-EX1,Helm 1,Crew 1,RS 200,,1000,M,S
-EX2,Heml 2,,RS 300,,970,M,G
