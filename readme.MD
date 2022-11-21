@@ -30,32 +30,31 @@ The system helps the results secratary with the following tasks
 
 Results Secratry jobs
 
--weekly results entry/ editing other people result files
--Storing the race files in the correct folders for the serise to be generated.
--adding new QE codes to the system for new sailors an rigs.
--Post series
--Corrections
--Personal handicap calucation (after end of each serise)
--PY return
+- weekly results entry/ editing other people result files
+- Storing the race files in the correct folders for the serise to be generated.
+- adding new QE codes to the system for new sailors an rigs.
+- Post series
+- Corrections
+- Personal handicap calucation (after end of each serise)
+- PY return
 
 the following task could be automated but are currently are performed manualy by the secratary based on the outputs of the system
 
--organise return of trophies
--Create Engraving list
--Creating and posting open results and special race results
--Pursuit serise recording and summary.
--working out over all winner of short course.
+- organise return of trophies
+- Create Engraving list
+- Creating and posting open results and special race results
+- Pursuit serise recording and summary.
+- working out over all winner of short course.
 
-#Configuration
+# Configuration
 
 The results system uses csv (comma seperated value) file for the handicaps and Quick Entry code (QEcode) file to provide details of the racers and the handicaps of their boats.
 
-##QE file
+## QE file
 some examples of QE are given below:
 
-RFD,Robert Finch,,DART 18,6223,1033,M,G
-
-RH3,Richard Hargreaves,,RS 300,373,982,S,G
+RFD,Robert Finch,,DART 18,6223,1033,M,G  
+RH3,Richard Hargreaves,,RS 300,373,982,S,G  
 
 or in tabulated form:
 
@@ -75,13 +74,12 @@ or in tabulated form:
 |Age group|(char) vaild chars J,S,M,G corisponding to junior (under 18) senior (up to 45) masters (up to 60) grand masters (>60) |
 |Fleet|(char), legacy field for gold and silver fleets no longer used but still required valid values are S,G|
 
-##handicap file
+## handicap file
 some example handcaps are given bellow,  these adopt the same form as the rya py list to allow for simple cut and past from the excel document when it is published each year.
 https://www.rya.org.uk/racing/technical/handicap-systems/portsmouth-yardstick
 
-HERON,1345,D,U,1,0
-
-HOBIE 16,819,C,S,2,0
+HERON,1345,D,U,1,0  
+HOBIE 16,819,C,S,2,0  
 
 or in tablulated form:
 
@@ -93,14 +91,14 @@ or in tablulated form:
 only the class and PY are requred by the system but other feilds must be present even if not poulated ie:
 HOBIE 16,819,,,,
 
-##config.json
+## config.json
 config.json specfies the current handicap nad QEfile to use.
 
 ["2020.csv","2022_QE_NOV.txt"]
 
 it is done in this way as during the season the QE file is regenrated by the audit.py script at the end of each serise to update the personal handicaps and this allows the old handicap files to be kept and used by the results.py script to generate all the serise outpus.
 
-#Use
+# Use
 to create a new race from terminal or desktop shortcut run:   /installPath/raceGUI.py
 this will launch the race entry GUI.
 
