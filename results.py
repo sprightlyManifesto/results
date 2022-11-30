@@ -3,6 +3,13 @@ from serise import Series
 
 pyFile = "2020.csv"
 
+dirs = ("Icicle","Autumn","shortCourse1","shortCourse2","shortCourse3","shortCourse4","fastnet","portland","rockall","houghton","caulcott","Watts","blackaby","wednesday")
+
+for d in dirs:
+	if d  not in os.listdir():	
+		os.mkdir(d)
+
+
 #Icicle
 Series(pyFile, "2021_QE_OCT.txt", {"Icicle"},"Icicle").filterByBoatType("M").summary(True, True, "IcicleMonos.html")
 Series(pyFile, "2021_QE_OCT.txt", {"Icicle"},"Icicle").filterByBoatType("C").summary(True, True, "IcicleCats.html")
