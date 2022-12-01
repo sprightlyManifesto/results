@@ -20,6 +20,7 @@ Windows Installation:
 	git clone https://github.com/sprightlyManifesto/results.git
 
 ubuntu install:
+
 	$sudo apt install git
 	$sudo apt install python3-tk
 	$sudo apt install python3-qt5
