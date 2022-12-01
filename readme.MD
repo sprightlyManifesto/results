@@ -103,29 +103,59 @@ it is done in this way as during the season the QE file is regenrated by the aud
 - To Genterate the personal hadicaps run audit.py having first created a directory called audit in the git checkout and put into it all the race files you want to build the new file from.
 the audit process creates two files,  audit.csv which is a new correctly formated QEfile with the calcuated personal hadicaps from the .race files in the audit directory. The system also creates personalHandicaps.html which is a html file explaining the personal hadicaps system and included the latest lists.
 - To generate the PY return create a directory in the checkout called return and copy in all the files you wish to generate the PY return from,  then run: python return.py this generates an XML file that can be uploaded to the rya py returns website.
-- To Generate all the serise outputs as html run results.py (note this requires all the races to be stored sub directories named for each serise as per the names in the results files:
 
-pursuit  
-wednesday  
-Autumn  
-fastnet  
-portland  
-rockall  
-Icicle  
-caulcott  
-houghton  
-Watts  
-blackaby  
-shortCourse1  
-shortCourse2  
-shortCourse3  
-shortCourse4  
 
-each race file must be named:
-[seriesName][singleSpace][raceNo][singlSpace][dateOfrace].race
+#Weekly tasks
 
-ie:  
-autum 2 6-11-2022.race
+After each race the result sec, will collect the result either from the race officers computer at the club or as timing sheets to be retyped.
+once collected the race should be examined to check all the entrants have a quick entry code and if not one should be added.
+
+for example here is an example race:
+
+#Autumn 1
+|QE|Helm|Crew|Class|Time|Laps|Finish Code|
+|--|--|--|--|--|--|--|
+RH3|Richard Hargreaves||RS300|2230|3||
+TVR|Terry Van Rijn||ROOSTER 8.1|2700|3||
+ZZ0|Gerry Howcroft||LASER|2700|2||
+
+in this example the Race officer has done a manual entry for Gerry sailing a laser because there is no QE code in the system form him indicated by a ZZn code.
+
+so the QE file should be edited to add gerry in the new rig:
+
+usualy the code will the be the helms initals + the first letter of the class but in this case GHL allready exists:  
+
+GHL,Gerry Howcroft,,LIGHTNING 368,152,1434,M,S  
+
+so instead we pick GHLA, QE codes can be any lenght and comination of letters A-Z and numbers 0-9  
+
+GHLA,Gerry Howcroft,,LASER,,0,M,S  
+
+notes
+-the sail number may be ommitted as it is not used by the software and only there for backward compatablity. 
+-The personal handicap feild must be set to either zero,  or may at the secrataries discression be set the same as that of the sailors personal hadicap in another class
+-It is a good idea to keep the personal handicaps file in alphabetical order by QE code for ease of editing
+
+Once the new QEs are added the race file may saved into the relavant serise directory:
+
+the files need to be named acording the to the following convention:
+
+[SeriseName][single space][Race Number][single space][datedelimtedby"-"].race
+
+eg:
+
+"Autumn 1 22-11-2022.race"
+
+once the file are copied into their location from the command prompt in the results directory  eg c:\users\\[username]\results\ run:
+
+python results.py
+
+this will generate all the htm outputs for the serise which can be viewed localy and once your happy with the output upload by running:
+
+python publish.py (note this script not included in the default install as its user specific depending on how the publication works)
+
+
+
 
 
 
