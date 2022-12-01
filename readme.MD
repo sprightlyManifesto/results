@@ -1,4 +1,4 @@
-#SWSC racing results system
+# SWSC racing results system
 
 The stewartby racing results system,  is for average lap portsmouth yardstick dinghy and catermaran racing that calculates serise an race results.
 
@@ -46,11 +46,11 @@ the following task could be automated but are currently are performed manualy by
 - Pursuit serise recording and summary.
 - working out over all winner of short course.
 
-# Configuration
+## Configuration
 
 The results system uses csv (comma seperated value) file for the handicaps and Quick Entry code (QEcode) file to provide details of the racers and the handicaps of their boats.
 
-## QE file
+### QE file
 some examples of QE are given below:
 
 RFD,Robert Finch,,DART 18,6223,1033,M,G  
@@ -74,7 +74,7 @@ or in tabulated form:
 |Age group|(char) vaild chars J,S,M,G corisponding to junior (under 18) senior (up to 45) masters (up to 60) grand masters (>60) |
 |Fleet|(char), legacy field for gold and silver fleets no longer used but still required valid values are S,G|
 
-## handicap file
+### handicap file
 some example handcaps are given bellow,  these adopt the same form as the rya py list to allow for simple cut and past from the excel document when it is published each year.
 https://www.rya.org.uk/racing/technical/handicap-systems/portsmouth-yardstick
 
@@ -91,28 +91,37 @@ or in tablulated form:
 only the class and PY are requred by the system but other feilds must be present even if not poulated ie:
 HOBIE 16,819,,,,
 
-## config.json
+### config.json
 config.json specfies the current handicap nad QEfile to use.
 
 ["2020.csv","2022_QE_NOV.txt"]
 
 it is done in this way as during the season the QE file is regenrated by the audit.py script at the end of each serise to update the personal handicaps and this allows the old handicap files to be kept and used by the results.py script to generate all the serise outpus.
 
-# Use
+## Use
 - To create a new race from terminal or desktop shortcut run: raceGUI.py   this will launch the race entry GUI.
 - To Genterate the personal hadicaps run audit.py having first created a directory called audit in the git checkout and put into it all the race files you want to build the new file from.
 the audit process creates two files,  audit.csv which is a new correctly formated QEfile with the calcuated personal hadicaps from the .race files in the audit directory. The system also creates personalHandicaps.html which is a html file explaining the personal hadicaps system and included the latest lists.
 - To generate the PY return create a directory in the checkout called return and copy in all the files you wish to generate the PY return from,  then run: python return.py this generates an XML file that can be uploaded to the rya py returns website.
 
 
-#Weekly tasks
+### Weekly tasks
 
+#### At the club
+Collect or ask the duty crew to provide you with:
+- Timing Sheets
+- Signing on Sheets
+- Race files from the RO computer if avalible.
+
+Check there are sufficent of both and replenish as requred. 
+
+#### Add new QE codes as requred
 After each race the result sec, will collect the result either from the race officers computer at the club or as timing sheets to be retyped.
 once collected the race should be examined to check all the entrants have a quick entry code and if not one should be added.
 
 for example here is an example race:
 
-#Autumn 1
+Autumn 1
 |QE|Helm|Crew|Class|Time|Laps|Finish Code|
 |--|--|--|--|--|--|--|
 RH3|Richard Hargreaves||RS300|2230|3||
@@ -131,10 +140,12 @@ so instead we pick GHLA, QE codes can be any lenght and comination of letters A-
 
 GHLA,Gerry Howcroft,,LASER,,0,M,S  
 
-notes
--the sail number may be ommitted as it is not used by the software and only there for backward compatablity. 
--The personal handicap feild must be set to either zero,  or may at the secrataries discression be set the same as that of the sailors personal hadicap in another class
--It is a good idea to keep the personal handicaps file in alphabetical order by QE code for ease of editing
+notes:
+- the sail number may be ommitted as it is not used by the software and only there for backward compatablity. 
+- The personal handicap feild must be set to either zero,  or may at the secrataries discression be set the same as that of the sailors personal hadicap in another class
+- It is a good idea to keep the personal handicaps file in alphabetical order by QE code for ease of editing
+
+#### Save race files into correct serise directory
 
 Once the new QEs are added the race file may saved into the relavant serise directory:
 
@@ -148,14 +159,61 @@ eg:
 
 once the file are copied into their location from the command prompt in the results directory  eg c:\users\\[username]\results\ run:
 
+#### Generate and publish results 
+
 python results.py
 
 this will generate all the htm outputs for the serise which can be viewed localy and once your happy with the output upload by running:
 
 python publish.py (note this script not included in the default install as its user specific depending on how the publication works)
 
+#### Corrections
 
+occaionaly it will be nessasry to correct results,  common reasons for this include:
 
+- A racer being missed
+- A Laser being recorded with the wrong rig
+- Typos, a common one is two digits being reversed in a time.
+- Incorrect number of laps entered
 
+a good practice when entering a result is to count up the entries and check you have the same number of results.
 
+Corrections will usualy be made at the instigation of either a competitor or the race officer,  they should only be made if confirmed by the original timing sheets that are regarded as the master record or on the advise of the days RO.
 
+to make the correction simply edit the relavant race file.
+
+where a rig / class is changed the competitors QE code and the class listed should be changed ie:
+
+in this example Roger actualy sailed a RS AERO 5:
+
+Wednesday_7_SW_18-05-2022.race
+RH3,Richard Hargreaves,,RS 300,373,1024,1,,  
+TVR,Terry Van Rijn,,ROOSTER 8.1,239,1100,1,,  
+YGP,Yossi Galiko,,WOODEN PHANTOM,,1127,1,,  
+DHL,Dave Harrison,,LASER,153490,1409,1,,  
+COD,Colin Clasper,,D-ZERO,,1448,1,,  
+JWS,John Williamson,,SOLO,3043,1461,1,,  
+ISL,Ian Squire,,LASER,,1493,1,,  
+JSZ,Jim Strother,,D-ZERO,,1500,1,,  
+ABN,Andy Bunyan,,SUPERNOVA,,1522,1,,  
+AHS,Anthony Harris,,SOLO,1584,1548,1,,  
+TBS,Tim Browning,,STREAKER,1810,1638,1,,  
+CAS,Charles Adams,,SOLO,4188,1694,1,,  
+RF7,Roger Fowler,,RS AERO 7,,1694,1,,  
+AMR,Andy Morely,,LASER RADIAL,174932,1970,1,,  
+<HANDICAPS>  
+420,1105,D  
+2000,1114,D  
+29ER,903,D  
+505,903,D  
+ALBACORE,1040,D  
+BLAZE,1033,S  
+------------------TRUNCATED------------------  
+
+so the line need to be changed to:   
+RF5,Roger Fowler,,RS AERO 5,,1694,1,,  
+
+and rerun:
+python results.py
+
+check the result is then correct in the serise and publish
