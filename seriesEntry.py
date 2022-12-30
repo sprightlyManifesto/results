@@ -10,17 +10,17 @@ class SeriesEntry:
         self.dnc = 0
 
     def scoreSeries(self, tocount, dnc):
-        #print(len(self.resultsPY))
+        # print(len(self.resultsPY))
         self.dnc = dnc
-        
+
         rPY = self.resultsPY[:]
         rPY.sort(reverse=False)
         for i in range(0, tocount):
             self.scorePY += rPY[i]
-        
+
         rPersonal = self.resultsPersonal[:]
         rPersonal.sort(reverse=False)
-        for i in range(0 , tocount):
+        for i in range(0, tocount):
             self.scorePersonal += rPersonal[i]
 
     def summary(self):
@@ -34,7 +34,7 @@ class SeriesEntry:
             else:
                 row += "<td>" + str(r) + "</td>"
         row += "<td>" + str(self.scorePY) + "</td></tr>"
-        #print(row)
+        # print(row)
         return row
 
     def summaryPersonal(self):
@@ -48,5 +48,5 @@ class SeriesEntry:
             else:
                 row += "<td>" + str(r) + "</td>"
         row += "<td>" + str(self.scorePersonal) + "</td></tr>"
-        #print(row)
+        # print(row)
         return row
