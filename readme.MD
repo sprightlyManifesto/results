@@ -99,8 +99,8 @@ eg linux:
 ["2020.csv","2022_QE_NOV.txt","firefox"]
 
 eg windows:
-["2020.csv","2022_QE_NOV.txt",'"C:&#5c;&#5c;Program Files (x86)&#5c;&#5c;Google&#5c;&#5c;Chrome&#5c;&#5c;Application&#5c;&#5c;chrome.exe"']
-please note the use of the outer '' quotations and the doubleing of the \ caricter
+["2020.csv","2022_QE_NOV.txt",'"C:\\\\Program Files (x86)\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe"']
+please note the use of the outer '' quotations and the doubleing of the \\ caricter to \\\\
 
 it is done in this way as during the season the QE file is regenrated by the audit.py script at the end of each serise to update the personal handicaps and this allows the old handicap files to be kept and used by the results.py script to generate all the serise outpus.
 
