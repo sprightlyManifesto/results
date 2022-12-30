@@ -77,7 +77,7 @@ class MyTable(QTableWidget):
         self.setHorizontalHeaderLabels(headings)
         self.check_change = True
         self.cellChanged.connect(self.c_current)
-        handicapsFile, QEsfile, self.browserPath = json.loads(
+        handicapsFile, QEsFile, self.browserPath = json.loads(
             open("config.json", "r").read()
         )
         self.filename = filename
