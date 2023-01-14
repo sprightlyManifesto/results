@@ -12,6 +12,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QEvent
 from datetime import datetime
+from pathlib import Path
 
 
 class tempQE:
@@ -182,7 +183,11 @@ class MyTable(QTableWidget):
                     self.race.QEs.append(qe)
                     print(qe, laps, time, fincode, 0)
                 self.race.entries.append(raceEntry(qe, laps, time, fincode, 0))
-        self.race.save(self.filename + ".race")
+        raceFileName = self.filename
+        if not raceFileName.endswith(".race"):
+            self.race.save(self.filename + ".race")
+        else:
+            self.race.save(self.filename)
         self.race.score(len(self.race.entries) + 1)
         html = (
             """<html> 
@@ -210,8 +215,13 @@ class MyTable(QTableWidget):
             + self.race.personalResult()
             + "</html>"
         )
-        open(self.filename + ".html", "w").write(html)
-        os.system(self.browserPath + " " + os.getcwd() + "/" + self.filename + ".html")
+        htmlFileName = Path(self.filename).name.replace(" ","_")
+        if htmlFileName.endswith(".race"):
+            htmlFileName = htmlFileName[:-5] 
+        htmlFileName += ".html"
+        open(htmlFileName, "w").write(html)
+        os.system(self.browserPath + " " + os.getcwd() + "/" + htmlFileName)
+        
 
     def c_current(self):
         row = self.currentRow()
@@ -244,23 +254,46 @@ class MyTable(QTableWidget):
             self.cols[h[i]][-1].textChanged.connect(self.c_current)
 
     def open_sheet(self):
+        row = 0
+        endOfEntrys = False
         self.check_change = False
         path = QFileDialog.getOpenFileName(
-            self, "Open CSV", os.getenv("HOME"), "CSV(*.csv)"
+            self, "Open race", os.getcwd(), "RACE(*.race)"
         )
         if path[0] != "":
+            self.filename = path[0]
+            print(self,self.parent())
+            self.parent().setWindowTitle(self.filename)
             with open(path[0], newline="") as csv_file:
-                self.setRowCount(0)
-                self.setColumnCount(10)
+                #self.setRowCount(0)
+                #self.setColumnCount(10)
                 my_file = csv.reader(csv_file, delimiter=",", quotechar="|")
+                skip = True
                 for row_data in my_file:
-                    row = self.rowCount()
-                    self.insertRow(row)
-                    if len(row_data) > 10:
-                        self.setColumnCount(len(row_data))
-                    for column, stuff in enumerate(row_data):
-                        item = QTableWidgetItem(stuff)
-                        self.setItem(row, column, item)
+                    if skip:
+                        skip = False
+                    else:
+                        if "<HANDICAPS>" in row_data[0]: 
+                            endOfEntrys = True
+                            print("end of race entries")
+                        #row = self.rowCount()
+                        #self.insertRow(row)
+                        if len(row_data) > 7 and (not endOfEntrys):
+                            #self.setColumnCount(len(row_data))
+                            #for column, stuff in enumerate(row_data):
+                            #    item = QTableWidgetItem(stuff)
+                            #    self.setItem(row, column, item)
+                            print("row_data",row_data)
+                            print('len(self.cols)',len(self.cols))
+                            print('len(self.cols["QE"])',len(self.cols["QE"]))
+                            self.cols["QE"][row].setText(row_data[0])
+                            self.cols["Helm"][row].setText(row_data[1])
+                            self.cols["Crew"][row].setText(row_data[2])
+                            self.cols["Class"][row].setText(row_data[3])
+                            self.cols["Time"][row].setText(row_data[5])
+                            self.cols["Laps"][row].setText(row_data[6])
+                            self.cols["Code"][row].setText(row_data[7])
+                            row +=1
         self.check_change = True
 
 
@@ -274,13 +307,17 @@ class Sheet(QMainWindow):
             self.form_widget.addItem()
         scoreAct = QAction("&Score", self)
         scoreAct.triggered.connect(self.form_widget.score)
+        openAct = QAction("&Re Open Exisiting File", self)
+        openAct.triggered.connect(self.form_widget.open_sheet)
         exitAct = QAction("&Exit", self)
         exitAct.setShortcut("Ctrl+Q")
         exitAct.setStatusTip("Exit application")
         exitAct.triggered.connect(qApp.quit)
         menubar = self.menuBar()
         fileMenu = menubar.addMenu("&File")
+        AdminMenu = menubar.addMenu("&Admin")
         fileMenu.addAction(scoreAct)
+        AdminMenu.addAction(openAct)
         self.setGeometry(100, 100, 940, 600)
         self.setWindowTitle("Results Sheet")
         self.fn = fileNameCreator(self)
